@@ -70,15 +70,16 @@ print(poiMsg)
 ##  *  *  *  TOWNS CREATION  *  *  *  ##
 
 def generateTowns(n=10, minval=-1.0, maxval=1.0):
-    townNames = ["Bordertown", "Columbia", "Rapture", "Yharnam", "Yahar'Gul (UV)", 
-                 "Genty Town", "St. Gojiras",
-                 "(the FC of) Newark", "Nite-City", 
-                 "Starlink Shrine", "Edge Knot City", "Mountain Knot City", "Vault 13", "Hemwick",
-                 "San-Chelyabinsk", "Neuevasyuki", "Houston (WGP)", 
-                 "Kryzhopl", "Bender's (Hold)", "Battleground"
-                 "Zion", 
-                 "Kuldakhar", "Eastheaven", "New Gettisburg", "Wellington Wells", "Redgrave",
-                 "Sliabh Luachra", "Leithrim Fancy"]
+    townNames = ["Bordertown", "Yharnam", "Eastheaven", "New Gettisburg", "Yahar'Gul (UV)", 
+                 "Genty Town", "St. Gojiras", 
+                 "(the FC of) Newark", "Wellington Wells",
+                 "Sliabh Luachra", "Leithrim Fancy",
+                 "Hemwick", "Battleground",
+                 "Firelink Shrine", "Edge Knot City",
+                 "San-Chelyabinsk", "Neuevasyuki", 
+                 "Kryzhopl", "Bender's (Hold)", 
+                 "Kuldakhar", "Redgrave"
+                 ]
     
     points = np.random.uniform(size=(n,2), low=minval, high=maxval)
     points = [tuple(i) for i in points]
@@ -102,18 +103,18 @@ def plotTowns(towns, shortestTravel=None, plotSize=10):
     shortestTravel: Tuple(  Tuple(no, name, Tuple(coordX, coordY))), int  ) - one of shortest travels found and its length
     '''
     fig, ax = plt.subplots(1,1, figsize=(plotSize, plotSize))
+    for no, town in enumerate(towns):       
+        ax.scatter(town[1][0], town[1][1])
+        ax.text(x=town[1][0]+0.005, y=town[1][1]+0.005, s="{}. {}".format(no, town[0]))
+
     for town in towns:
         otherTowns = exclTown(towns, town)
         for t in otherTowns:
-            ax.plot([town[2][0], t[2][0]], [town[2][1], t[2][1]], c="lightgrey")
-
-    for town in towns:       
-        ax.scatter(town[2][0], town[2][1])
-        ax.text(x=town[2][0]+0.005, y=town[2][1]+0.005, s="{}: {}".format(town[0],town[1]))
+            ax.plot([town[1][0], t[1][0]], [town[1][1], t[1][1]], c="lightgrey", ls="--")
         
     if shortestTravel is not None:
-        shortXs = [t[2][0] for t in shortestTravel]
-        shortYs = [t[2][1] for t in shortestTravel]
+        shortXs = [t[1][0] for t in shortestTravel]
+        shortYs = [t[1][1] for t in shortestTravel]
         
         ax.plot(shortXs, shortYs, c="red")
         
