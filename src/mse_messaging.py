@@ -35,7 +35,7 @@ class PoisonMessage(MseMessage):
 
 class InfoMessage(MseMessage):
     def __init__(self, text, **kwargs):
-        super(PoisonMessage, self).__init__(**kwargs)
+        super(InfoMessage, self).__init__(**kwargs)
         self.text = text
 
 
@@ -49,7 +49,7 @@ class InfoMessage(MseMessage):
 
 class DataMessage(MseMessage):
     def __init__(self, data, **kwargs):
-        super(PoisonMessage, self).__init__(**kwargs)
+        super(DataMessage, self).__init__(**kwargs)
         self.data = data
 
 
